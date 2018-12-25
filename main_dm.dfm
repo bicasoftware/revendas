@@ -1,13 +1,14 @@
 object DMMain: TDMMain
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Height = 150
   Width = 215
   object zconMain: TZConnection
     ControlsCodePage = cCP_UTF16
     Catalog = ''
     Connected = True
-    HostName = 'localhost'
-    Port = 3306
+    HostName = ''
+    Port = 0
     Database = 'comercio'
     User = 'adm'
     Password = 'master'

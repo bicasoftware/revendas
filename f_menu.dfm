@@ -14,8 +14,37 @@ object FormMenu: TFormMenu
   Menu = mmMain
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
+  object sbarMain: TStatusBar
+    Left = 0
+    Top = 551
+    Width = 852
+    Height = 19
+    Panels = <
+      item
+        Text = 'Status'
+        Width = 50
+      end
+      item
+        Width = 100
+      end
+      item
+        Text = 'Usu'#225'rio:'
+        Width = 50
+      end
+      item
+        Width = 400
+      end
+      item
+        Text = 'N'#237'vel'
+        Width = 50
+      end
+      item
+        Width = 50
+      end>
+  end
   object mmMain: TMainMenu
     Left = 8
     Top = 8
@@ -50,6 +79,20 @@ object FormMenu: TFormMenu
       end
       object NovoUsurio1: TMenuItem
         Caption = 'Novo Usu'#225'rio'
+      end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object Desconectar1: TMenuItem
+        Caption = 'Desconectar'
+        OnClick = Desconectar1Click
+      end
+      object N2: TMenuItem
+        Caption = '-'
+      end
+      object Finalizar1: TMenuItem
+        Caption = 'Finalizar'
+        OnClick = Finalizar1Click
       end
     end
   end

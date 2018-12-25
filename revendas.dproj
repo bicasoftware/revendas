@@ -98,11 +98,18 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="forms\sistema\f_manutencao_db.pas">
+            <Form>FormManutencao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="utils\StringHelper.pas"/>
+        <DCCReference Include="utils\IntHelper.pas"/>
         <DCCReference Include="\\vboxsrv\Arquivos\Programacao\revendas\bases\base_form.pas">
             <Form>BaseForm</Form>
         </DCCReference>
-        <DCCReference Include="forms\sistema\f_manutencao_db.pas">
-            <Form>FormManutencao</Form>
+        <DCCReference Include="utils\EditTextHelper.pas"/>
+        <DCCReference Include="forms\f_login_2.pas">
+            <Form>FormLogin2</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
