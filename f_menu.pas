@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, main_dm, Data.DB,
-  ZAbstractRODataset, ZAbstractDataset, ZDataset, StringHelper, Vcl.ComCtrls, IntHelper, f_login_2;
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, StringHelper, Vcl.ComCtrls, IntHelper;
 
 type
   TFormMenu = class(TForm)
@@ -26,10 +26,12 @@ type
     Desconectar1: TMenuItem;
     N2: TMenuItem;
     Finalizar1: TMenuItem;
+    N3: TMenuItem;
     procedure btClientesClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Finalizar1Click(Sender: TObject);
     procedure Desconectar1Click(Sender: TObject);
+    procedure N3Click(Sender: TObject);
 //    procedure FormShow(Sender: TObject);
   private
     procedure setStatus(status: string);
@@ -50,7 +52,7 @@ var
 implementation
 
 uses
-  f_clientes;
+  f_clientes, f_login_2, f_first_run;
 
 {$R *.dfm}
 
@@ -141,6 +143,14 @@ begin
   }
   if FormLogin2 <> nil then
     FormLogin2.close;
+end;
+
+procedure TFormMenu.N3Click(Sender: TObject);
+begin
+  if(FormFirstRun = nil) then begin
+    FormFirstRun := TFormFirstRun.Create(Self);
+  end;
+  FormFirstRun.ShowModal;
 end;
 
 procedure TFormMenu.setNivel(nivel: Integer);

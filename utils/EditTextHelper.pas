@@ -11,11 +11,23 @@ type
     function isEmpty: Boolean;
     function isNotEmpty: Boolean;
     function trimmedText: string;
+    function asInt: Integer;
+    function asDouble: Double;
   end;
 
 implementation
 
 { TEditTextHelper }
+
+function TEditTextHelper.asDouble: Double;
+begin
+  result := StrToFloat(self.Text);
+end;
+
+function TEditTextHelper.asInt: Integer;
+begin
+  result := StrToInt(StringReplace(self.text, '_', '',[rfReplaceAll]));
+end;
 
 function TEditTextHelper.isEmpty: Boolean;
 begin

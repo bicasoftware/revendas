@@ -16,4 +16,9 @@ object DMMain: TDMMain
     Left = 40
     Top = 32
   end
+  object zqry1: TZQuery
+    Params = <>
+    Left = 120
+    Top = 48
+  end
 end

@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons,
-  main_dm, Data.DB, ZAbstractRODataset, ZAbstractDataset, ZDataset;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons, main_dm, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset;
 
 type
   TFormLogin2 = class(TForm)
@@ -17,9 +17,11 @@ type
     procedure btSairClick(Sender: TObject);
     procedure btLogarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     procedure destroyQuery(query: TZQuery);
     procedure showMenu;
+    procedure showFormFirstRun;
     { Private declarations }
   public
     { Public declarations }
@@ -29,8 +31,9 @@ var
   FormLogin2: TFormLogin2;
 
 implementation
+
 uses
-  StringHelper, IntHelper, EditTextHelper, f_menu;
+  StringHelper, IntHelper, EditTextHelper, f_menu, ConfigFileReader, f_first_run;
 
 {$R *.dfm}
 
@@ -73,11 +76,19 @@ end;
 
 procedure TFormLogin2.showMenu();
 begin
-  if(FormMenu = nil) then begin
+  if (FormMenu = nil) then begin
     FormMenu := TFormMenu.Create(Application);
   end;
 
   FormMenu.Show;
+end;
+
+procedure TFormLogin2.showFormFirstRun();
+begin
+  if (FormFirstRun = nil) then begin
+    FormFirstRun := TFormFirstRun.Create(Application);
+  end;
+  FormFirstRun.ShowModal;
 end;
 
 procedure TFormLogin2.btSairClick(Sender: TObject);
@@ -92,6 +103,28 @@ begin
   if (query <> nil) then begin
     query.Close;
     query.Destroy;
+  end;
+end;
+
+procedure TFormLogin2.FormCreate(Sender: TObject);
+var
+  configFile: TConfigFileReader;
+begin
+  {
+    Se o arquivo .ini não existir na pasta do .exe, mostra tela de configuração,
+    se existir, conecta ao banco e espera Login;
+  }
+
+  configFile := TConfigFileReader.Create(self);
+  if (not configFile.doConfigFileExist) then begin
+    Self.Hide;
+    showFormFirstRun;
+  end else begin
+    configFile.read;
+    with DMMain.zconMain do begin
+      HostName := configFile.getHost;
+      Port := configFile.getPort.toInt;
+    end;
   end;
 end;
 

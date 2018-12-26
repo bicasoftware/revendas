@@ -3,11 +3,13 @@ unit main_dm;
 interface
 
 uses
-  System.SysUtils, System.Classes, ZAbstractConnection, ZConnection, StringHelper;
+  System.SysUtils, System.Classes, ZAbstractConnection, ZConnection, StringHelper, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset;
 
 type
   TDMMain = class(TDataModule)
     zconMain: TZConnection;
+    zqry1: TZQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
 
@@ -27,6 +29,9 @@ var
 
 implementation
 
+uses
+  ConfigFileReader;
+
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
@@ -34,27 +39,27 @@ implementation
 { TDMMain }
 
 procedure TDMMain.DataModuleCreate(Sender: TObject);
-var
-  fileName: string;
-  configs: TStringList;
+//var
+//  fileName: string;
+//  configs: TStringList;
 begin
-  fileName := GetCurrentDir + '/configs.ini';
-
-  try
-    if (FileExists(fileName)) then begin
-      configs := TStringList.Create;
-      configs.LoadFromFile(fileName);
-      with DMMain.zconMain do begin
-        HostName := configs[0];
-        port := configs[1].toInt;
-        Database := 'comercio';
-        Connect;
-      end;
-    end;
-
-  except
-
-  end;
+//  fileName := GetCurrentDir + '/configs.ini';
+//
+//  try
+//    if (FileExists(fileName)) then begin
+//      configs := TStringList.Create;
+//      configs.LoadFromFile(fileName);
+//      with DMMain.zconMain do begin
+//        HostName := configs[0];
+//        port := configs[1].toInt;
+//        Database := 'comercio';
+//        Connect;
+//      end;
+//    end;
+//
+//  except
+//
+//  end;
 end;
 
 procedure TDMMain.setAccesslevel(level: Integer);

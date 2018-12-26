@@ -77,6 +77,10 @@ object FormMenu: TFormMenu
       object ManutenoBancodados1: TMenuItem
         Caption = 'Manuten'#231#227'o Banco dados'
       end
+      object N3: TMenuItem
+        Caption = 'Configura'#231#245'es'
+        OnClick = N3Click
+      end
       object NovoUsurio1: TMenuItem
         Caption = 'Novo Usu'#225'rio'
       end
