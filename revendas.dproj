@@ -98,10 +98,6 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="forms\sistema\f_manutencao_db.pas">
-            <Form>FormManutencao</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="utils\StringHelper.pas"/>
         <DCCReference Include="utils\IntHelper.pas"/>
         <DCCReference Include="\\vboxsrv\Arquivos\Programacao\revendas\bases\base_form.pas">
@@ -117,6 +113,18 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="utils\ConfigFileReader.pas"/>
+        <DCCReference Include="forms\sistema\f_db_setup.pas">
+            <Form>FormDBSetup</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="utils\db_creation\SQLField.pas"/>
+        <DCCReference Include="utils\db_creation\field_types.pas"/>
+        <DCCReference Include="utils\db_creation\VarcharField.pas"/>
+        <DCCReference Include="utils\db_creation\u_sql_table.pas"/>
+        <DCCReference Include="utils\db_creation\u_char_column.pas"/>
+        <DCCReference Include="utils\db_creation\u_integer_column.pas"/>
+        <DCCReference Include="utils\db_creation\u_boolean_column.pas"/>
+        <DCCReference Include="utils\db_creation\u_decimal_column.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

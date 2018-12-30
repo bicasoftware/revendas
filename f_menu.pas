@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, main_dm, Data.DB,
-  ZAbstractRODataset, ZAbstractDataset, ZDataset, StringHelper, Vcl.ComCtrls, IntHelper;
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, StringHelper, Vcl.ComCtrls, IntHelper, u_sql_table,
+  SQLField, VarcharField;
 
 type
   TFormMenu = class(TForm)
@@ -27,19 +28,19 @@ type
     N2: TMenuItem;
     Finalizar1: TMenuItem;
     N3: TMenuItem;
+    mmo1: TMemo;
+    btn1: TButton;
     procedure btClientesClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Finalizar1Click(Sender: TObject);
     procedure Desconectar1Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
-//    procedure FormShow(Sender: TObject);
+    procedure btn1Click(Sender: TObject);
   private
     procedure setStatus(status: string);
     procedure setUsername(name: string);
     procedure setNivel(nivel: Integer);
     procedure signOut;
-//    procedure doConnect;
-//    procedure showLogin;
     { Private declarations }
   public
     { Public declarations }
@@ -52,56 +53,10 @@ var
 implementation
 
 uses
-  f_clientes, f_login_2, f_first_run;
+  f_clientes, f_login_2, f_first_run, u_char_column, u_integer_column, u_boolean_column,
+  u_decimal_column;
 
 {$R *.dfm}
-
-//procedure TFormMenu.doConnect();
-//var
-//  fileName: string;
-//  configs: TStringList;
-//begin
-//  fileName := GetCurrentDir + '/configs.ini';
-//  setStatus('desconectado');
-//
-//  try
-//    if (FileExists(fileName)) then begin
-//      configs := TStringList.Create;
-//      configs.LoadFromFile(fileName);
-//      with DMMain.zconMain do begin
-//        HostName := configs[0];
-//        port := configs[1].toInt;
-//        Database := 'comercio';
-//        Connect;
-//        setStatus('Conectado');
-//      end;
-//
-//    end
-//    else begin
-//      ShowMessage('arquivo não existe');
-//      setStatus('desconectado');
-//    end;
-//
-//  except
-//    on e: Exception do
-//      ShowMessage('Arquivo de configuração não encontrado!');
-//  end;
-//
-//end;
-
-//procedure TFormMenu.FormShow(Sender: TObject);
-//begin
-//  doConnect;
-//  showLogin;
-//end;
-//
-//procedure TFormMenu.showLogin();
-//begin
-//  if (FormLogin = nil) then begin
-//    FormLogin := TFormLogin.Create(self);
-//    FormLogin.Show;
-//  end;
-//end;
 
 procedure TFormMenu.updateUser;
 begin
@@ -123,6 +78,22 @@ end;
 procedure TFormMenu.setUsername(name: string);
 begin
   sbarMain.Panels[3].Text := name;
+end;
+
+procedure TFormMenu.btn1Click(Sender: TObject);
+var
+  table: TSQLTable;
+begin
+
+  table := TSQLTable.Create('clientes');
+  table.addField(TCharColumn.Create(TCharType.ctVarchar, 'nome', 30, false, ''));
+  table.addField(TCharColumn.Create(TCharType.ctChar, 'uf', 2, False, 'SP'));
+  table.addField(TIntegerColumn.Create(itInt, 'idade', false, 18));
+  table.addField(TBooleanColumn.Create('status', false));
+  table.addField(TDecimalColumn.create('salario', 0.0));
+//  table.addField(TDateColumn.create('datanascto', false, now))
+//  table.addField(TSQLTimestampField.create);
+  mmo1.Text := table.generateCreateSyntax;
 end;
 
 procedure TFormMenu.Desconectar1Click(Sender: TObject);
@@ -147,7 +118,7 @@ end;
 
 procedure TFormMenu.N3Click(Sender: TObject);
 begin
-  if(FormFirstRun = nil) then begin
+  if (FormFirstRun = nil) then begin
     FormFirstRun := TFormFirstRun.Create(Self);
   end;
   FormFirstRun.ShowModal;

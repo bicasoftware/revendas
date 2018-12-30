@@ -45,6 +45,24 @@ object FormMenu: TFormMenu
         Width = 50
       end>
   end
+  object mmo1: TMemo
+    Left = 96
+    Top = 128
+    Width = 673
+    Height = 305
+    Lines.Strings = (
+      'mmo1')
+    TabOrder = 1
+  end
+  object btn1: TButton
+    Left = 96
+    Top = 96
+    Width = 185
+    Height = 25
+    Caption = 'btn1'
+    TabOrder = 2
+    OnClick = btn1Click
+  end
   object mmMain: TMainMenu
     Left = 8
     Top = 8
